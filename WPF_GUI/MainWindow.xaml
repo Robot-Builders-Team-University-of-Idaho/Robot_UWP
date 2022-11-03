@@ -9,6 +9,7 @@
     <Grid>
         <Button Content="Exit" HorizontalAlignment="Center" VerticalAlignment="Center" Height="75" Width="299"
                 Name="ExitButton" Click="ExitButton_Click"/>
+        <ComboBox HorizontalAlignment="Center" Margin="0,278,0,0" VerticalAlignment="Center" Width="120"/>
 
     </Grid>
 </Window>
