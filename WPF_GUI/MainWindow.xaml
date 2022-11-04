@@ -5,11 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_GUI"
         mc:Ignorable="d"
-        Title="Robot GUI" Height="450" Width="800">
+        Title="Robot GUI" Height="450" Width="800" ResizeMode="NoResize" Background="#0F0F2D">
+
     <Grid>
-        <Button Content="Exit" HorizontalAlignment="Center" VerticalAlignment="Center" Height="75" Width="299"
-                Name="ExitButton" Click="ExitButton_Click"/>
-        <ComboBox HorizontalAlignment="Center" Margin="0,278,0,0" VerticalAlignment="Center" Width="120"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="Port Number:"
+               FontWeight="Bold" Foreground="White" Grid.Row="0" Grid.Column="2"/>
+
+
+        <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" 
+                  Name="ChosenPort" SelectionChanged="SelectPort" Grid.Row="0" Grid.Column="3">
+            <ComboBoxItem Content="COM1"></ComboBoxItem>
+            <ComboBoxItem Content="COM2"></ComboBoxItem>
+            <ComboBoxItem Content="COM3"></ComboBoxItem>
+            <ComboBoxItem Content="COM4"></ComboBoxItem>
+            <ComboBoxItem Content="COM5"></ComboBoxItem>
+            <ComboBoxItem Content="COM6"></ComboBoxItem>
+            <ComboBoxItem Content="COM7"></ComboBoxItem>
+        </ComboBox>
+
+        <Button x:Name="Connect" Content="Connect" Grid.Row="1" Grid.Column="2" Click="ConnectToPort"
+                Margin="5"/>
+        <Button x:Name="Disconnect" Content="Disconnect" Grid.Row="1" Grid.Column="3" Click="DisconnectFromPort"
+                Margin="5"/>
+
+        <Slider Orientation="Vertical" Margin="10" Grid.Column="0" Grid.Row="2" IsSnapToTickEnabled="True"
+                HorizontalAlignment="Center" Minimum="0" Maximum="180" x:Name="Slider1"/>
+        <Label Content="{Binding ElementName=Slider1, Path=Value}" ContentStringFormat="{}{0:#}" Grid.Column="0" 
+               Grid.Row="3" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="A1"/>
+
+        <Slider Orientation="Vertical" Margin="10" Grid.Column="1" Grid.Row="2" IsSnapToTickEnabled="True"
+                HorizontalAlignment="Center" Minimum="0" Maximum="180" x:Name="Slider2"/>
+        <Label Content="{Binding ElementName=Slider2, Path=Value}" ContentStringFormat="{}{0:#}" Grid.Column="1" 
+               Grid.Row="3" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="A2"/>
+
+        <Slider Orientation="Vertical" Margin="10" Grid.Column="2" Grid.Row="2" IsSnapToTickEnabled="True"
+                HorizontalAlignment="Center" Minimum="0" Maximum="180" x:Name="Slider3"/>
+        <Label Content="{Binding ElementName=Slider3, Path=Value}" ContentStringFormat="{}{0:#}" Grid.Column="2" 
+               Grid.Row="3" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="A3"/>
+
+        <Slider Orientation="Vertical" Margin="10" Grid.Column="3" Grid.Row="2" IsSnapToTickEnabled="True"
+                HorizontalAlignment="Center" Minimum="0" Maximum="180" x:Name="Slider4"/>
+        <Label Content="{Binding ElementName=Slider4, Path=Value}" ContentStringFormat="{}{0:#}" Grid.Column="3" 
+               Grid.Row="3" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="A4"/>
+
+        <Slider Orientation="Vertical" Margin="10" Grid.Column="4" Grid.Row="2" IsSnapToTickEnabled="True"
+                HorizontalAlignment="Center" Minimum="0" Maximum="180" x:Name="Slider5"/>
+        <Label Content="{Binding ElementName=Slider5, Path=Value}" ContentStringFormat="{}{0:#}" Grid.Column="4" 
+               Grid.Row="3" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="A5"/>
+
+        <Slider Orientation="Vertical" Margin="10" Grid.Column="5" Grid.Row="2" IsSnapToTickEnabled="True"
+                HorizontalAlignment="Center" Minimum="0" Maximum="180" x:Name="Slider6"/>
+        <Label Content="{Binding ElementName=Slider6, Path=Value}" ContentStringFormat="{}{0:#}" Grid.Column="5" 
+               Grid.Row="3" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="A6"/>
 
     </Grid>
+
 </Window>
