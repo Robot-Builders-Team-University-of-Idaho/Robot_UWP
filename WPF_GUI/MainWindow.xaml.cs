@@ -24,6 +24,7 @@ namespace WPF_GUI
     public partial class MainWindow : Window
     {
         static string portName;
+        static bool printing = false;
         private SerialPort port;
         
 
@@ -35,19 +36,24 @@ namespace WPF_GUI
 
         private void SelectPort(object sender, SelectionChangedEventArgs e)
         {
-            portName = ((ComboBoxItem)ChosenPort.SelectedItem).Content.ToString();
-            Debug.WriteLine(portName);
+            try { 
+                portName = ((ComboBoxItem)ChosenPort.SelectedItem).Content.ToString(); 
+                Debug.WriteLine(portName);
+            }
+            catch { }
+            
         }
         
         private void ConnectToPort(object sender, RoutedEventArgs e)
-        {
-            port = new SerialPort(portName, 9600);
+        {  
             try { 
+                port = new SerialPort(portName, 9600);
                 port.Open();
                 Debug.WriteLine("opened port " + portName);
                 }
             catch { }
             Task.Delay(100);
+            printing = true;
             Tracking();
         }
 
@@ -58,13 +64,15 @@ namespace WPF_GUI
                 port.Close();
                 Debug.WriteLine("port has been closed");
             }
+            printing = false;
         }
 
         private async void Tracking()
         {
-            while (true)
+            while (printing)
             {
-                Debug.WriteLine(Size((int)Slider1.Value));
+                Debug.WriteLine(Size((int)Slider1.Value) + Size((int)Slider2.Value) + Size((int)Slider3.Value) + 
+                    Size((int)Slider4.Value) + Size((int)Slider5.Value) + Size((int)Slider6.Value));
                 await Task.Delay(10);
             }
         }
