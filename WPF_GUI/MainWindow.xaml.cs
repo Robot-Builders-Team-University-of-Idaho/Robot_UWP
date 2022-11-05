@@ -34,6 +34,11 @@ namespace WPF_GUI
             Debug.WriteLine("this is working");
         }
 
+        private void CloseApp(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         private void SelectPort(object sender, SelectionChangedEventArgs e)
         {
             try { 
@@ -73,6 +78,14 @@ namespace WPF_GUI
             {
                 Debug.WriteLine(Size((int)Slider1.Value) + Size((int)Slider2.Value) + Size((int)Slider3.Value) + 
                     Size((int)Slider4.Value) + Size((int)Slider5.Value) + Size((int)Slider6.Value));
+
+                try
+                {
+                    port.WriteLine(Size((int)Slider1.Value) + Size((int)Slider2.Value) + Size((int)Slider3.Value) +
+                    Size((int)Slider4.Value) + Size((int)Slider5.Value) + Size((int)Slider6.Value));
+                }
+                catch { printing = false; }
+
                 await Task.Delay(10);
             }
         }
