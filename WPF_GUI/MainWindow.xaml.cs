@@ -52,6 +52,11 @@ namespace WPF_GUI
             this.Close();
         }
 
+        private void MinWindow(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
         private void RecordPositions(object sender, RoutedEventArgs e)
         {
             if (Recording)
