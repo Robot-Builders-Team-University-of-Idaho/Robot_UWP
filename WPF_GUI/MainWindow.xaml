@@ -61,7 +61,7 @@
                 </Style>
             </Button.Resources>
             <Button.Background>
-                <SolidColorBrush Color="#000e4b" Opacity="0.2"/>
+                <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
             </Button.Background>
         </Button>
 

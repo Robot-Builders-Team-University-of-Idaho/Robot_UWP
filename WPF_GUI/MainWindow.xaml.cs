@@ -18,14 +18,11 @@ using System.Threading;
 
 namespace WPF_GUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         static string portName;
         static bool printing = false;
-        private SerialPort port;
+        private SerialPort port = new SerialPort("COM1", 115200);
         
 
         public MainWindow()
@@ -36,15 +33,13 @@ namespace WPF_GUI
 
         private void CloseApp(object sender, RoutedEventArgs e)
         {
-            this.Close();
             try
             {
-                if (port.IsOpen)
-                {
-                    port.Close();
-                }
+                port.Close();
+                Task.Delay(100);
             }
             catch { }
+            this.Close();
         }
 
         private void SelectPort(object sender, SelectionChangedEventArgs e)
