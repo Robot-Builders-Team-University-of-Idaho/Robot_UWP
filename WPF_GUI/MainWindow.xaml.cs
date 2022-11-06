@@ -23,12 +23,22 @@ namespace WPF_GUI
         static string portName;
         static bool printing = false;
         private SerialPort port = new SerialPort("COM1", 115200);
+        public List<string> PosList = new List<string>();
+        static bool Recording = false;
         
 
         public MainWindow()
         {
             InitializeComponent();
             Debug.WriteLine("this is working");
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            // Begin dragging the window
+            this.DragMove();
         }
 
         private void CloseApp(object sender, RoutedEventArgs e)
@@ -40,6 +50,27 @@ namespace WPF_GUI
             }
             catch { }
             this.Close();
+        }
+
+        private void RecordPositions(object sender, RoutedEventArgs e)
+        {
+            if (Recording)
+            {
+                Recording = false;
+                Record.Opacity = 1;
+            }
+            else
+            {
+                PosList = new List<string>();
+                Recording = true;
+                Record.Opacity = 0.5;
+            }
+
+            //while (Recording)
+            //{
+            //    PosList.Add(Size((int)Slider1.Value) + Size((int)Slider2.Value) + Size((int)Slider3.Value) +
+            //            Size((int)Slider4.Value) + Size((int)Slider5.Value) + Size((int)Slider6.Value));
+            //}
         }
 
         private void SelectPort(object sender, SelectionChangedEventArgs e)
@@ -91,6 +122,11 @@ namespace WPF_GUI
 
                 await Task.Delay(10);
             }
+        }
+
+        private async void SavePos()
+        {
+            await Task.Delay(10);
         }
 
         private string Size(int x)
