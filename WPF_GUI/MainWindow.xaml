@@ -9,7 +9,7 @@
         WindowStyle="None" Background="Transparent" AllowsTransparency="True">
 
 
-    <Border BorderBrush="Transparent" CornerRadius="10">
+    <Border  CornerRadius="10" BorderThickness="3" BorderBrush="Black">
 
         <Border.Background>
             <LinearGradientBrush StartPoint="0.25,0" EndPoint="0.75,1">
@@ -20,23 +20,24 @@
             </LinearGradientBrush>
         </Border.Background>
 
-        <Grid>
+        
+        <Grid Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="200"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
 
 
