@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF_GUI"
         mc:Ignorable="d"
         Title="Robot GUI" Height="450" Width="800" ResizeMode="NoResize"
-        WindowStyle="SingleBorderWindow">
+        WindowStyle="None">
 
     <Grid>
         

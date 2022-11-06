@@ -37,6 +37,14 @@ namespace WPF_GUI
         private void CloseApp(object sender, RoutedEventArgs e)
         {
             this.Close();
+            try
+            {
+                if (port.IsOpen)
+                {
+                    port.Close();
+                }
+            }
+            catch { }
         }
 
         private void SelectPort(object sender, SelectionChangedEventArgs e)
@@ -52,7 +60,7 @@ namespace WPF_GUI
         private void ConnectToPort(object sender, RoutedEventArgs e)
         {  
             try { 
-                port = new SerialPort(portName, 9600);
+                port = new SerialPort(portName, 115200);
                 port.Open();
                 Debug.WriteLine("opened port " + portName);
                 }
