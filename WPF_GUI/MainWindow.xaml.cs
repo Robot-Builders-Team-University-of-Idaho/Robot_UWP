@@ -30,7 +30,6 @@ namespace WPF_GUI
         public MainWindow()
         {
             InitializeComponent();
-            Debug.WriteLine("this is working");
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
@@ -71,11 +70,26 @@ namespace WPF_GUI
                 Record.Opacity = 0.5;
             }
 
-            //while (Recording)
-            //{
-            //    PosList.Add(Size((int)Slider1.Value) + Size((int)Slider2.Value) + Size((int)Slider3.Value) +
-            //            Size((int)Slider4.Value) + Size((int)Slider5.Value) + Size((int)Slider6.Value));
-            //}
+
+        }
+
+        private  async void PlayRecording(object sender, RoutedEventArgs e)
+        {
+            printing = false;
+            Play.IsEnabled = false;
+            for (int i = 0; i < PosList.Count; i++)
+            {
+                try { 
+                    Debug.WriteLine(PosList[i]);
+                    port.WriteLine(PosList[i]);
+                }
+                catch { }
+                await Task.Delay(10);
+                
+            }
+            Play.IsEnabled = true;
+            printing = true;
+            Tracking();
         }
 
         private void SelectPort(object sender, SelectionChangedEventArgs e)
@@ -90,10 +104,13 @@ namespace WPF_GUI
         
         private void ConnectToPort(object sender, RoutedEventArgs e)
         {  
-            try { 
-                port = new SerialPort(portName, 115200);
-                port.Open();
-                Debug.WriteLine("opened port " + portName);
+            try {
+                if (!port.IsOpen)
+                {
+                    port = new SerialPort(portName, 115200);
+                    port.Open();
+                    Debug.WriteLine("opened port " + portName);
+                }
                 }
             catch { }
             Task.Delay(100);
@@ -122,6 +139,12 @@ namespace WPF_GUI
                 {
                     port.WriteLine(Size((int)Slider1.Value) + Size((int)Slider2.Value) + Size((int)Slider3.Value) +
                     Size((int)Slider4.Value) + Size((int)Slider5.Value) + Size((int)Slider6.Value));
+
+                    if (Recording)
+                    {
+                        PosList.Add(Size((int)Slider1.Value) + Size((int)Slider2.Value) + Size((int)Slider3.Value) +
+                        Size((int)Slider4.Value) + Size((int)Slider5.Value) + Size((int)Slider6.Value));
+                    }
                 }
                 catch { printing = false; }
 
