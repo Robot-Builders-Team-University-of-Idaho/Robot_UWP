@@ -1,0 +1,88 @@
+﻿<Page
+    x:Class="RobotUI_UWP.CtrlPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RobotUI_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignWidth="600" d:DesignHeight="500">
+   
+
+    <Border Name= "Border" CornerRadius="10" BorderThickness="3" BorderBrush="Black">
+
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0.25,0" EndPoint="0.75,1">
+                <LinearGradientBrush.GradientStops>
+                    <GradientStop Color="#FF0063" Offset="0"/>
+                    <GradientStop Color="#6600FF" Offset="1.2"/>
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+        </Border.Background>
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+            </Grid.ColumnDefinitions>
+            <!-- Return Button -->
+            <Button x:Name="Return" Content="Return" HorizontalAlignment="Right"
+                    Click="ReturnPage" Margin="5" Grid.Column="1"
+                    VerticalAlignment="Top" Foreground="White" FontWeight="Bold" BorderBrush="White">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Background>
+                    <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                </Button.Background>
+            </Button>
+            <!-- Exp Contrl Code -->
+            <StackPanel Grid.Row="0" HorizontalAlignment="Left" IsTapEnabled="False">
+                <Button Name="btnConnect" Content="Connect" FontSize="20" Click="btnConnect_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Background>
+                        <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                    </Button.Background>
+                </Button>
+                <TextBlock Name="tbConnected" Text="-"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Left Trigger" Margin="0,0,10,0"/>
+                    <TextBlock Name="tbLeftTrigger" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Right Trigger" Margin="0,0,10,0"/>
+                    <TextBlock x:Name="tbRightTrigger"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Lft Thumbstick X" Margin="0,0,10,0"/>
+                    <TextBlock Name="tbLeftThumbstickX"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Lft Thumbstick Y" Margin="0,0,10,0"/>
+                    <TextBlock Name="tbLeftThumbstickY"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Right Thumbstick X" Margin="0,0,10,0"/>
+                    <TextBlock Name="tbRightThumbstickX"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Right Thumbstick Y" Margin="0,0,10,0"/>
+                    <TextBlock Name="tbRightThumbstickY"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Buttons" Margin="0,0,10,0"/>
+                    <TextBlock Name="tbButtons"/>
+                </StackPanel>
+            </StackPanel>
+            <Button x:Name="nothingButton" Visibility="Collapsed"/>
+        </Grid>
+    </Border>
+</Page>
