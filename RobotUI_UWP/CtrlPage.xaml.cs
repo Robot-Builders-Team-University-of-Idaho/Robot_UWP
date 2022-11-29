@@ -18,6 +18,10 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Gaming;
 using Windows.UI.Xaml.Documents;
 using Windows.System;
+using System.Diagnostics;
+using Windows.Networking;
+using System.IO.Ports;
+using System.ComponentModel.Design.Serialization;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,8 +30,18 @@ namespace RobotUI_UWP
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
+    /// 
+
     public sealed partial class CtrlPage : Page
     {
+        static string portName2;
+        static bool printing2 = true;
+        SerialPort port2 = new SerialPort("COM1", 115200);
+        static double th1, th2, th3;
+        static double x = 0.0;
+        static double y = 0.0;
+        static double z = 0.0;
+        
         private Gamepad _Gamepad = null;
         public CtrlPage()
         {
@@ -58,12 +72,27 @@ namespace RobotUI_UWP
                     // Get the current state
                     var reading = _Gamepad.GetCurrentReading();
 
-                    tbLeftTrigger.Text = reading.LeftTrigger.ToString();
-                    tbRightTrigger.Text = reading.RightTrigger.ToString();
-                    tbLeftThumbstickX.Text = reading.LeftThumbstickX.ToString();
-                    tbLeftThumbstickY.Text = reading.LeftThumbstickY.ToString();
-                    tbRightThumbstickX.Text = reading.RightThumbstickX.ToString();
-                    tbRightThumbstickY.Text = reading.RightThumbstickY.ToString();
+                    tbLeftTrigger.Text = Math.Round(reading.LeftTrigger, 1).ToString();
+                    tbRightTrigger.Text = Math.Round(reading.RightTrigger, 1).ToString();
+                    tbLeftThumbstickX.Text = Math.Round(reading.LeftThumbstickX, 1).ToString();
+                    if (Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x < 2 && Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x > 0)
+                    {
+                        x += Math.Round(reading.LeftThumbstickX, 1) * 0.01;
+                    }
+
+                    tbLeftThumbstickY.Text = Math.Round(reading.LeftThumbstickY, 1).ToString();
+                    if (Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y < 2 && Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y > 0)
+                    {
+                        y += Math.Round(reading.LeftThumbstickY, 1) * 0.01;
+                    }
+
+                    tbRightThumbstickX.Text = Math.Round(reading.RightThumbstickX, 1).ToString();
+                    if (Math.Round(reading.RightThumbstickX, 1) * 0.01 + z < 2 && Math.Round(reading.RightThumbstickX, 1) * 0.01 + z > 0)
+                    {
+                        z += Math.Round(reading.RightThumbstickX, 1) * 0.01;
+                    }
+
+                    tbRightThumbstickY.Text = Math.Round(reading.RightThumbstickY, 1).ToString();
                     tbButtons.Text = string.Empty;
                     tbButtons.Text += (reading.Buttons & GamepadButtons.A) == GamepadButtons.A ? "A " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.B) == GamepadButtons.B ? "B " : "";
@@ -77,7 +106,7 @@ namespace RobotUI_UWP
                     tbButtons.Text += (reading.Buttons & GamepadButtons.DPadRight) == GamepadButtons.DPadRight ? "DPadRight " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.DPadUp) == GamepadButtons.DPadUp ? "DPadUp " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.DPadDown) == GamepadButtons.DPadDown ? "DPadDown " : "";});
-
+                Kinematics(x, y, z);
                 await Task.Delay(TimeSpan.FromMilliseconds(5));
             }
         }
@@ -106,6 +135,104 @@ namespace RobotUI_UWP
                 Return.IsEnabled = false;
                 btnConnect.IsEnabled = false;
             });
+        }
+
+        private void SelectPort2(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                portName2 = ((ComboBoxItem)ChosenPort2.SelectedItem).Content.ToString();
+                Debug.WriteLine(portName2);
+            }
+            catch { }
+
+        }
+
+        private void ConnectToPort2(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!port2.IsOpen)
+                {
+                    port2 = new SerialPort(portName2, 115200);
+                    port2.Open();
+                    Debug.WriteLine("opened port " + portName2);
+                }
+            }
+            catch { }
+            Task.Delay(100);
+            printing2 = true;
+            Tracking();
+        }
+
+        private void DisconnectFromPort2(object sender, RoutedEventArgs e)
+        {
+            printing2 = false;
+            if (port2.IsOpen)
+            {
+                port2.Close();
+                Debug.WriteLine("port has been closed");
+            }
+            
+        }
+
+        private async void Tracking()
+        {
+            while (printing2)
+            {
+                //Debug.WriteLine(Size((int)y));
+
+                try
+                {
+                    if (th1 > 0 && th2 > 0 && th3 > 0 && th1 < 180 && th2 < 180 && th3 < 180)
+                    {
+                        port2.WriteLine(Kinematics(x, y, z));
+                    }
+                }
+                catch { printing2 = false; }
+
+                await Task.Delay(10);
+            }
+        }
+
+        private string Size(int x)
+        {
+            string output = x.ToString();
+            if (output.Length == 1)
+            {
+                output = "00" + output;
+            }
+            else if (output.Length == 2)
+            {
+                output = "0" + output;
+            }
+            return output;
+        }
+
+        private string Kinematics(double x, double y, double z)
+        {
+            double s3, c3, k1, k2, A, B;
+            double l1 = 1;
+            double l2 = 1;
+            double l3 = 1;
+
+            th1 = Math.Atan2(y, x);
+            c3 = (x * x + y * y + z * z - (l1 * l1 + l2 * l2 + l3 * l3) - 2 * l1 * (z - l1)) / (2 * l2 * l3);
+            s3 = Math.Sqrt(1 - c3);
+
+            th3 = Math.Atan2(s3, c3);
+            k1 = c3 * l3 + l2;
+            k2 = s3 * l3;
+            A = -2 * k1 * (l1 - z);
+            B = Math.Pow(2 * k1 * (l1 - z), 2) - 4 * (k1 * k1 + k2 * k2) * (z * z + l1 * l1 - k2 * k2 - 2 * l1 * z);
+            th2 = Math.Asin((A + Math.Sqrt(B)) / (2 * (k1 * k1 + k2 * k2)));
+
+            th1 = th1 * 180 / Math.PI;
+            th2 = th2 * 180 / Math.PI;
+            th3 = th3 * 180 / Math.PI;
+
+            Debug.WriteLine(Size((int)th1) + Size((int)th2) + Size((int)th3) + "   " + x.ToString() + " " + y.ToString() + " " + z.ToString());
+            return Size((int)th1) + Size((int)th2) + Size((int)th3);
         }
     }
 }

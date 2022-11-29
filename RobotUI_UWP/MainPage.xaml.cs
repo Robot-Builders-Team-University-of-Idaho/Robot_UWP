@@ -24,14 +24,6 @@ using Windows.Devices.Enumeration;
 
 namespace RobotUI_UWP
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    /// 
-
-
-
-
     public sealed partial class MainPage : Page
     {
         //Global Variables
@@ -77,7 +69,7 @@ namespace RobotUI_UWP
                 try
                 {
                     Debug.WriteLine(PosList[i]);
-                    port.WriteLine(PosList[i]);
+                    //port.WriteLine(PosList[i]);
                 }
                 catch { }
                 await Task.Delay(10);
@@ -122,10 +114,10 @@ namespace RobotUI_UWP
             printing = true;
             Tracking();
         }
-           
+
         private void CtrlConnect(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void DisconnectFromPort(object sender, RoutedEventArgs e)
@@ -149,12 +141,6 @@ namespace RobotUI_UWP
                 {
                     port.WriteLine(Size((int)Slider1.Value) + Size((int)Slider2.Value) + Size((int)Slider3.Value) +
                     Size((int)Slider4.Value) + Size((int)Slider5.Value) + Size((int)Slider6.Value));
-
-                    if (Recording)
-                    {
-                        PosList.Add(Size((int)Slider1.Value) + Size((int)Slider2.Value) + Size((int)Slider3.Value) +
-                        Size((int)Slider4.Value) + Size((int)Slider5.Value) + Size((int)Slider6.Value));
-                    }
                 }
                 catch { printing = false; }
 
