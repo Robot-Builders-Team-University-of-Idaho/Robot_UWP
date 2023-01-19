@@ -41,6 +41,9 @@ namespace RobotUI_UWP
         static double x = 0.0;
         static double y = 0.0;
         static double z = 0.0;
+        static double th4 = 0.0;
+        static double th5 = 0.0;
+        static double th6 = 0.0;
         
         private Gamepad _Gamepad = null;
         public CtrlPage()
@@ -73,7 +76,17 @@ namespace RobotUI_UWP
                     var reading = _Gamepad.GetCurrentReading();
 
                     tbLeftTrigger.Text = Math.Round(reading.LeftTrigger, 1).ToString();
+                    if (Math.Round(reading.LeftTrigger, 1) + th4 < 180)
+                    {
+                        th4 += Math.Round(reading.LeftTrigger, 1);
+                    }
+
                     tbRightTrigger.Text = Math.Round(reading.RightTrigger, 1).ToString();
+                    if (-Math.Round(reading.RightTrigger, 1) + th4 > 0)
+                    {
+                        th4 -= Math.Round(reading.RightTrigger, 1);
+                    }
+
                     tbLeftThumbstickX.Text = Math.Round(reading.LeftThumbstickX, 1).ToString();
                     if (Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x < 2 && Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x > 0)
                     {
@@ -87,19 +100,31 @@ namespace RobotUI_UWP
                     }
 
                     tbRightThumbstickX.Text = Math.Round(reading.RightThumbstickX, 1).ToString();
-                    if (Math.Round(reading.RightThumbstickX, 1) * 0.01 + z < 2 && Math.Round(reading.RightThumbstickX, 1) * 0.01 + z > 0)
-                    {
-                        z += Math.Round(reading.RightThumbstickX, 1) * 0.01;
-                    }
+
 
                     tbRightThumbstickY.Text = Math.Round(reading.RightThumbstickY, 1).ToString();
+                    if (Math.Round(reading.RightThumbstickY, 1) * 0.01 + z < 2 && Math.Round(reading.RightThumbstickY, 1) * 0.01 + z > 0)
+                    {
+                        z += Math.Round(reading.RightThumbstickY, 1) * 0.01;
+                    }
+
                     tbButtons.Text = string.Empty;
                     tbButtons.Text += (reading.Buttons & GamepadButtons.A) == GamepadButtons.A ? "A " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.B) == GamepadButtons.B ? "B " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.X) == GamepadButtons.X ? "X " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.Y) == GamepadButtons.Y ? "Y " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.LeftShoulder) == GamepadButtons.LeftShoulder? "LeftShoulder " : "";
+                    if (reading.Buttons == GamepadButtons.LeftShoulder && th6 + 0.5 < 180)
+                    {
+                        th6 += 0.5;
+                    }
+
                     tbButtons.Text += (reading.Buttons & GamepadButtons.RightShoulder) == GamepadButtons.RightShoulder? "RightShoulder " : "";
+                    if (reading.Buttons == GamepadButtons.RightShoulder && th6 - 0.5 > 0)
+                    {
+                        th6 -= 0.5;
+                    }
+
                     tbButtons.Text += (reading.Buttons & GamepadButtons.LeftThumbstick) == GamepadButtons.LeftThumbstick? "LeftThumbstick " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.RightThumbstick) == GamepadButtons.RightThumbstick? "RightThumbstick " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.DPadLeft) == GamepadButtons.DPadLeft ? "DPadLeft " : "";
@@ -186,7 +211,7 @@ namespace RobotUI_UWP
                 {
                     if (th1 > 0 && th2 > 0 && th3 > 0 && th1 < 180 && th2 < 180 && th3 < 180)
                     {
-                        port2.WriteLine(Kinematics(x, y, z));
+                        port2.WriteLine(Kinematics(x, y, z) + Size((int)th4) + Size((int)th5) + Size((int)th6));
                     }
                 }
                 catch { printing2 = false; }
@@ -231,7 +256,7 @@ namespace RobotUI_UWP
             th2 = th2 * 180 / Math.PI;
             th3 = th3 * 180 / Math.PI;
 
-            Debug.WriteLine(Size((int)th1) + Size((int)th2) + Size((int)th3) + "   " + x.ToString() + " " + y.ToString() + " " + z.ToString());
+            Debug.WriteLine(Size((int)th1) + Size((int)th2) + Size((int)th3) + Size((int)th4) + Size((int)th5) + Size((int)th6) + "   " + x.ToString() + " " + y.ToString() + " " + z.ToString());
             return Size((int)th1) + Size((int)th2) + Size((int)th3);
         }
     }

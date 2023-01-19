@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Gaming.Input;
 using Windows.Devices.Enumeration;
+using Windows.System;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -28,7 +29,6 @@ namespace RobotUI_UWP
     {
         //Global Variables
         static string portName;
-        static string themeName;
         static bool printing = false;
         private SerialPort port = new SerialPort("COM1", 115200);
         public List<string> PosList = new List<string>();
@@ -165,6 +165,15 @@ namespace RobotUI_UWP
                 output = "0" + output;
             }
             return output;
+        }
+
+        private async void OpenGit(object sender, RoutedEventArgs e)
+        {
+            // Set the URL of the website you want to open
+            var uriBing = new Uri("https://github.com/Robot-Builders-Team-University-of-Idaho/Robot_UWP");
+
+            // Use the Process.Start() method to open the website
+            var success = await Launcher.LaunchUriAsync(uriBing);
         }
 
         private void btnConnect_Click(object sender, RoutedEventArgs e)

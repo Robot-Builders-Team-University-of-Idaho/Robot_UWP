@@ -4,20 +4,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:RobotUI_UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Windows10version1903="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignWidth="600" d:DesignHeight="500">
+    d:DesignWidth="600" d:DesignHeight="500"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    
 
-    <Border Name= "Border" CornerRadius="10" BorderThickness="3" BorderBrush="Black">
+    <Border>
 
-        <Border.Background>
+        <!--<Border.Background Background="{ThemeResource SystemControlAcrylicWindowBrush}">
             <LinearGradientBrush StartPoint="0.25,0" EndPoint="0.75,1">
                 <LinearGradientBrush.GradientStops>
                     <GradientStop Color="#FF0063" Offset="0"/>
                     <GradientStop Color="#6600FF" Offset="1.2"/>
                 </LinearGradientBrush.GradientStops>
             </LinearGradientBrush>
+        </Border.Background>-->
+        <Border.Background>
+            <AcrylicBrush TintColor="#6600FF" TintOpacity="0.1" Windows10version1903:TintLuminosityOpacity="0">
+                
+            </AcrylicBrush>
         </Border.Background>
+
 
         <Grid Margin="5">
 
@@ -47,19 +55,35 @@
             </StackPanel>
 
             <!-- Controller Page Navigator -->
-            <Button x:Name="Page" Content="Controller Page
-                    " Click="ChangePage" Margin="5" Grid.Row="0"
-                Grid.Column="0" Foreground="White" FontWeight="Bold" BorderBrush="White">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </Button.Resources>
-                <Button.Background>
-                    <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
-                </Button.Background>
-            </Button>
-
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button x:Name="Page" Content="Controller Page
+                        " Click="ChangePage" Margin="5" Grid.Row="0"
+                    Grid.Column="0" Foreground="White" FontWeight="Bold" BorderBrush="White">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Background>
+                        <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="Documentation" Content="Documentation
+                        " Click="OpenGit" Margin="5" Grid.Row="0"
+                    Grid.Column="2" Foreground="White" FontWeight="Bold" BorderBrush="White">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Background>
+                        <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
 
 
 
