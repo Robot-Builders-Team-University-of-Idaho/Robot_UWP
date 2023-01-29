@@ -143,7 +143,7 @@ namespace RobotUI_UWP
                 CoreDispatcherPriority.Normal, () =>
                 {
                     tbConnected.Text = "Controller removed";
-                    Return.IsEnabled = true;
+                    //Return.IsEnabled = true;
                     btnConnect.IsEnabled = true;
                 });
         }
@@ -157,7 +157,7 @@ namespace RobotUI_UWP
             CoreDispatcherPriority.Normal, () =>
             {
                 tbConnected.Text = "Controller added";
-                Return.IsEnabled = false;
+                //Return.IsEnabled = false;
                 btnConnect.IsEnabled = false;
             });
         }
@@ -236,21 +236,22 @@ namespace RobotUI_UWP
 
         private string Kinematics(double x, double y, double z)
         {
-            double s3, c3, k1, k2, A, B;
+            double r1, r2, alpha, beta, phi;
             double l1 = 1;
-            double l2 = 1;
-            double l3 = 1;
+            //double l2 = 1;
+            //double l3 = 1;
 
             th1 = Math.Atan2(y, x);
-            c3 = (x * x + y * y + z * z - (l1 * l1 + l2 * l2 + l3 * l3) - 2 * l1 * (z - l1)) / (2 * l2 * l3);
-            s3 = Math.Sqrt(1 - c3);
+            r1 = Math.Sqrt(x*x + y*y);
+            alpha = Math.Atan2(z, r1);
+            r2 = Math.Sqrt(r1 * r1 + z * z);
+            beta = Math.Acos(r2 / (l1 * 2));
+            th2 = alpha + beta;
+            phi = Math.PI - (2*beta);
+            th3 = Math.PI - phi + (Math.PI / 2);
 
-            th3 = Math.Atan2(s3, c3);
-            k1 = c3 * l3 + l2;
-            k2 = s3 * l3;
-            A = -2 * k1 * (l1 - z);
-            B = Math.Pow(2 * k1 * (l1 - z), 2) - 4 * (k1 * k1 + k2 * k2) * (z * z + l1 * l1 - k2 * k2 - 2 * l1 * z);
-            th2 = Math.Asin((A + Math.Sqrt(B)) / (2 * (k1 * k1 + k2 * k2)));
+            th3 = 0;
+            th2 = 0;
 
             th1 = th1 * 180 / Math.PI;
             th2 = th2 * 180 / Math.PI;

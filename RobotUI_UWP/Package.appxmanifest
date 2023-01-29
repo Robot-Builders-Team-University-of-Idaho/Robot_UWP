@@ -8,8 +8,8 @@
 
   <Identity
     Name="55176889-fb8c-47f8-95bf-5a4c05912fef"
-    Publisher="CN=jtcul"
-    Version="1.0.0.0" />
+    Publisher="CN=Spenser"
+    Version="1.0.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="55176889-fb8c-47f8-95bf-5a4c05912fef" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

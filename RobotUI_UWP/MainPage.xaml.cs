@@ -69,7 +69,7 @@ namespace RobotUI_UWP
                 try
                 {
                     Debug.WriteLine(PosList[i]);
-                    //port.WriteLine(PosList[i]);
+                    port.WriteLine(PosList[i]);
                 }
                 catch { }
                 await Task.Delay(10);
