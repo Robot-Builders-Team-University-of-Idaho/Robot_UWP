@@ -22,6 +22,7 @@ using System.Diagnostics;
 using Windows.Networking;
 using System.IO.Ports;
 using System.ComponentModel.Design.Serialization;
+using Windows.Devices.PointOfService;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,9 +39,9 @@ namespace RobotUI_UWP
         static bool printing2 = true;
         SerialPort port2 = new SerialPort("COM1", 115200);
         static double th1, th2, th3;
-        static double x = 0.0;
-        static double y = 0.0;
-        static double z = 0.0;
+        static double x = 0;
+        static double y = 0;
+        static double z = 0;
         static double th4 = 0.0;
         static double th5 = 0.0;
         static double th6 = 0.0;
@@ -90,13 +91,13 @@ namespace RobotUI_UWP
                     tbLeftThumbstickX.Text = Math.Round(reading.LeftThumbstickX, 1).ToString();
                     if (Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x < 2 && Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x > 0)
                     {
-                        x += Math.Round(reading.LeftThumbstickX, 1) * 0.01;
+                        x += Math.Round(reading.LeftThumbstickX, 1) * 0.001;
                     }
 
                     tbLeftThumbstickY.Text = Math.Round(reading.LeftThumbstickY, 1).ToString();
                     if (Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y < 2 && Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y > 0)
                     {
-                        y += Math.Round(reading.LeftThumbstickY, 1) * 0.01;
+                        y += Math.Round(reading.LeftThumbstickY, 1) * 0.001;
                     }
 
                     tbRightThumbstickX.Text = Math.Round(reading.RightThumbstickX, 1).ToString();
@@ -105,7 +106,7 @@ namespace RobotUI_UWP
                     tbRightThumbstickY.Text = Math.Round(reading.RightThumbstickY, 1).ToString();
                     if (Math.Round(reading.RightThumbstickY, 1) * 0.01 + z < 2 && Math.Round(reading.RightThumbstickY, 1) * 0.01 + z > 0)
                     {
-                        z += Math.Round(reading.RightThumbstickY, 1) * 0.01;
+                        z += Math.Round(reading.RightThumbstickY, 1) * 0.001;
                     }
 
                     tbButtons.Text = string.Empty;
@@ -236,29 +237,36 @@ namespace RobotUI_UWP
 
         private string Kinematics(double x, double y, double z)
         {
-            double r1, r2, alpha, beta, phi;
-            double l1 = 1;
-            //double l2 = 1;
-            //double l3 = 1;
+            if (Math.Sqrt(x * x + y * y + z * z) < 2)
+            {
+                double r1, r2, alpha, beta, phi;
+                double l1 = 1;
+                //double l2 = 1;
+                //double l3 = 1;
 
-            th1 = Math.Atan2(y, x);
-            r1 = Math.Sqrt(x*x + y*y);
-            alpha = Math.Atan2(z, r1);
-            r2 = Math.Sqrt(r1 * r1 + z * z);
-            beta = Math.Acos(r2 / (l1 * 2));
-            th2 = alpha + beta;
-            phi = Math.PI - (2*beta);
-            th3 = Math.PI - phi + (Math.PI / 2);
+                th1 = Math.Atan2(y, x);
+                r1 = Math.Sqrt(x * x + y * y);
+                alpha = Math.Atan2(z, r1);
+                r2 = Math.Sqrt(r1 * r1 + z * z);
+                beta = Math.Acos(r2 / (l1 * 2));
+                th2 = alpha + beta;
+                phi = Math.PI - (2 * beta);
+                th3 = Math.PI - phi + (Math.PI / 2);
 
-            th3 = 0;
-            th2 = 0;
-
-            th1 = th1 * 180 / Math.PI;
-            th2 = th2 * 180 / Math.PI;
-            th3 = th3 * 180 / Math.PI;
-
-            Debug.WriteLine(Size((int)th1) + Size((int)th2) + Size((int)th3) + Size((int)th4) + Size((int)th5) + Size((int)th6) + "   " + x.ToString() + " " + y.ToString() + " " + z.ToString());
-            return Size((int)th1) + Size((int)th2) + Size((int)th3);
+                th1 = 180 - th1 * 180 / Math.PI;
+                th2 = th2 * 180 / Math.PI;
+                if ((th2 - 90) + 180 - (th3 * 180 / Math.PI - 90) > 0)
+                {
+                    th3 = (th2 - 90) + 180 - (th3 * 180 / Math.PI - 90);
+                }
+                else { th3 = 0; }
+                Debug.WriteLine(th1.ToString() + " " + th2.ToString() + " " + th3.ToString() + " " + x.ToString() + 
+                    " " + y.ToString() + " " + z.ToString());
+                //Debug.WriteLine(Size((int)th1) + Size((int)th2) + Size((int)th3) + Size((int)th4) + Size((int)th5) + Size((int)th6) + "   " + x.ToString() + " " + y.ToString() + " " + z.ToString());
+                return Size((int)th1) + Size((int)th2) + Size((int)th3);
+            }
+            else { return Size((int)th1) + Size((int)th2) + Size((int)th3); }
         }
+
     }
 }

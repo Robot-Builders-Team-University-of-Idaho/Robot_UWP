@@ -25,7 +25,7 @@
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUri>C:\thing</AppInstallerUri>
     <HoursBetweenUpdateChecks>24</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>3639748DE8B0E9EEE2C83B0089E97C790F773703</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>9CD3A36D8B7D6EF8317C8EF813D7383DFE58A066</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxPackageDir>C:\thing\</AppxPackageDir>
   </PropertyGroup>
