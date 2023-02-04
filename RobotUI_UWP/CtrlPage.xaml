@@ -121,6 +121,18 @@
                         <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
                     </Button.Background>
                 </Button>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="x value: "/>
+                    <TextBlock Text="" Name="x_text"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="y value: "/>
+                    <TextBlock Text="" Name="y_text"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="z value: "/>
+                    <TextBlock Text="" Name="z_text"/>
+                </StackPanel>
             </StackPanel>
             <Button x:Name="nothingButton" Visibility="Collapsed"/>
         </Grid>

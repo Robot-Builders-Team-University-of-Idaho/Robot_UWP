@@ -8,8 +8,8 @@
 
   <Identity
     Name="55176889-fb8c-47f8-95bf-5a4c05912fef"
-    Publisher="CN=spens"
-    Version="1.0.3.0" />
+    Publisher="CN=Spenser"
+    Version="1.0.4.0" />
 
   <mp:PhoneIdentity PhoneProductId="55176889-fb8c-47f8-95bf-5a4c05912fef" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -37,7 +37,7 @@
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="RobotUI_UWP"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>

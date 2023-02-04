@@ -92,12 +92,14 @@ namespace RobotUI_UWP
                     if (Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x < 2 && Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x > 0)
                     {
                         x += Math.Round(reading.LeftThumbstickX, 1) * 0.001;
+                        x_text.Text = " " + x.ToString();
                     }
 
                     tbLeftThumbstickY.Text = Math.Round(reading.LeftThumbstickY, 1).ToString();
                     if (Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y < 2 && Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y > 0)
                     {
                         y += Math.Round(reading.LeftThumbstickY, 1) * 0.001;
+                        y_text.Text = " " + y.ToString();
                     }
 
                     tbRightThumbstickX.Text = Math.Round(reading.RightThumbstickX, 1).ToString();
@@ -107,6 +109,7 @@ namespace RobotUI_UWP
                     if (Math.Round(reading.RightThumbstickY, 1) * 0.01 + z < 2 && Math.Round(reading.RightThumbstickY, 1) * 0.01 + z > 0)
                     {
                         z += Math.Round(reading.RightThumbstickY, 1) * 0.001;
+                        z_text.Text = " " + z.ToString();
                     }
 
                     tbButtons.Text = string.Empty;
