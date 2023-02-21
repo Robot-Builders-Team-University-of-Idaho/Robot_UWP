@@ -24,12 +24,14 @@ using System.IO.Ports;
 using System.ComponentModel.Design.Serialization;
 using Windows.Devices.PointOfService;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace RobotUI_UWP
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// 
+    /// This page connects to an Xbox controller, and then using its inputs, passes thoes values through inverse kinematics
+    /// to generate the desired angles for the robot arm. These values then get sent to the Arduino through the serial port.
+    /// 
     /// </summary>
     /// 
 
@@ -38,27 +40,30 @@ namespace RobotUI_UWP
         static string portName2;
         static bool printing2 = true;
         SerialPort port2 = new SerialPort("COM1", 115200);
+
         static double th1, th2, th3;
-        static double x = 0;
+        static double x = 1;
         static double y = 0;
-        static double z = 0;
+        static double z = 1;
         static double th4 = 0.0;
         static double th5 = 0.0;
         static double th6 = 0.0;
-        
+
         private Gamepad _Gamepad = null;
+        
         public CtrlPage()
         {
             this.InitializeComponent();
         }
 
+        // returns to home page
         private void ReturnPage(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
         }
 
         
-
+        // checks for any inputs from the controller, and runs the kinematic function, updating the angles
         private async void btnConnect_Click(object sender,RoutedEventArgs e)
         {
             Gamepad.GamepadAdded += Gamepad_GamepadAdded;
@@ -77,38 +82,42 @@ namespace RobotUI_UWP
                     var reading = _Gamepad.GetCurrentReading();
 
                     tbLeftTrigger.Text = Math.Round(reading.LeftTrigger, 1).ToString();
-                    if (Math.Round(reading.LeftTrigger, 1) + th4 < 180)
+                    if (Math.Round(reading.LeftTrigger, 1) + th5 < 180)
                     {
-                        th4 += Math.Round(reading.LeftTrigger, 1);
+                        th5 += Math.Round(reading.LeftTrigger, 1);
                     }
 
                     tbRightTrigger.Text = Math.Round(reading.RightTrigger, 1).ToString();
-                    if (-Math.Round(reading.RightTrigger, 1) + th4 > 0)
+                    if (-Math.Round(reading.RightTrigger, 1) + th5 > 0)
                     {
-                        th4 -= Math.Round(reading.RightTrigger, 1);
+                        th5 -= Math.Round(reading.RightTrigger, 1);
                     }
 
                     tbLeftThumbstickX.Text = Math.Round(reading.LeftThumbstickX, 1).ToString();
                     if (Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x < 2 && Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x > 0)
                     {
-                        x += Math.Round(reading.LeftThumbstickX, 1) * 0.001;
+                        x += Math.Round(reading.LeftThumbstickX, 1) * 0.005;
                         x_text.Text = " " + x.ToString();
                     }
 
                     tbLeftThumbstickY.Text = Math.Round(reading.LeftThumbstickY, 1).ToString();
                     if (Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y < 2 && Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y > 0)
                     {
-                        y += Math.Round(reading.LeftThumbstickY, 1) * 0.001;
+                        y += Math.Round(reading.LeftThumbstickY, 1) * 0.005;
                         y_text.Text = " " + y.ToString();
                     }
 
                     tbRightThumbstickX.Text = Math.Round(reading.RightThumbstickX, 1).ToString();
+                    if (Math.Round(reading.LeftThumbstickX, 1) * 0.01 + th4 < 180 && Math.Round(reading.LeftThumbstickX, 1) * 0.01 + th4 > 0)
+                    {
+                        th4 += Math.Round(reading.LeftThumbstickX, 1) * 0.005;
+                    }
 
 
                     tbRightThumbstickY.Text = Math.Round(reading.RightThumbstickY, 1).ToString();
                     if (Math.Round(reading.RightThumbstickY, 1) * 0.01 + z < 2 && Math.Round(reading.RightThumbstickY, 1) * 0.01 + z > 0)
                     {
-                        z += Math.Round(reading.RightThumbstickY, 1) * 0.001;
+                        z += Math.Round(reading.RightThumbstickY, 1) * 0.005;
                         z_text.Text = " " + z.ToString();
                     }
 
@@ -135,10 +144,14 @@ namespace RobotUI_UWP
                     tbButtons.Text += (reading.Buttons & GamepadButtons.DPadRight) == GamepadButtons.DPadRight ? "DPadRight " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.DPadUp) == GamepadButtons.DPadUp ? "DPadUp " : "";
                     tbButtons.Text += (reading.Buttons & GamepadButtons.DPadDown) == GamepadButtons.DPadDown ? "DPadDown " : "";});
+
                 Kinematics(x, y, z);
+
+                Debug.WriteLine(Size((int)th1) + " " + Size((int)th2) + " " + Size((int)th3) + " " + " " + Size((int)th4) + " " + " " + Size((int)th5) + " " + " " + Size((int)th6) + " ");
                 await Task.Delay(TimeSpan.FromMilliseconds(5));
             }
         }
+
         private async void Gamepad_GamepadRemoved(object sender,Gamepad e)
         {
             _Gamepad = null;
@@ -166,6 +179,7 @@ namespace RobotUI_UWP
             });
         }
 
+        // sets the desired port number from the dropdown
         private void SelectPort2(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -177,6 +191,7 @@ namespace RobotUI_UWP
 
         }
 
+        // Connects to the serial port
         private void ConnectToPort2(object sender, RoutedEventArgs e)
         {
             try
@@ -194,6 +209,7 @@ namespace RobotUI_UWP
             Tracking();
         }
 
+        // Closes the serial port
         private void DisconnectFromPort2(object sender, RoutedEventArgs e)
         {
             printing2 = false;
@@ -205,6 +221,7 @@ namespace RobotUI_UWP
             
         }
 
+        // writes the angles to the serial port
         private async void Tracking()
         {
             while (printing2)
@@ -224,6 +241,7 @@ namespace RobotUI_UWP
             }
         }
 
+        // converts the incoming int into a 3 character long string
         private string Size(int x)
         {
             string output = x.ToString();
@@ -238,34 +256,27 @@ namespace RobotUI_UWP
             return output;
         }
 
+        // Inverse Kinematics for the robot arm
         private string Kinematics(double x, double y, double z)
         {
-            if (Math.Sqrt(x * x + y * y + z * z) < 2)
+            if (Math.Sqrt(x * x + y * y + (z-1) * (z - 1)) < 2 && Math.Sqrt(x * x + y * y + (z - 1) * (z - 1)) > 0.1)
             {
-                double r1, r2, alpha, beta, phi;
+                double rp, B;
                 double l1 = 1;
-                //double l2 = 1;
-                //double l3 = 1;
+                double l2 = 1;
+                double l3 = 1;
 
+                rp = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2) + Math.Pow(z - l1, 2));
                 th1 = Math.Atan2(y, x);
-                r1 = Math.Sqrt(x * x + y * y);
-                alpha = Math.Atan2(z, r1);
-                r2 = Math.Sqrt(r1 * r1 + z * z);
-                beta = Math.Acos(r2 / (l1 * 2));
-                th2 = alpha + beta;
-                phi = Math.PI - (2 * beta);
-                th3 = Math.PI - phi + (Math.PI / 2);
+                B = Math.Acos((Math.Pow(rp, 2) - Math.Pow(l3, 2) - Math.Pow(l1, 2)) / (-2 * l3 * l2));
+                th3 = Math.PI - B;
+                th2 = Math.Asin((z - l1) / rp) + Math.Atan2((l3 * Math.Sin(th3)), (l2 + l3 * Math.Cos(th3)));
 
-                th1 = 180 - th1 * 180 / Math.PI;
-                th2 = th2 * 180 / Math.PI;
-                if ((th2 - 90) + 180 - (th3 * 180 / Math.PI - 90) > 0)
-                {
-                    th3 = (th2 - 90) + 180 - (th3 * 180 / Math.PI - 90);
-                }
-                else { th3 = 0; }
-                Debug.WriteLine(th1.ToString() + " " + th2.ToString() + " " + th3.ToString() + " " + x.ToString() + 
-                    " " + y.ToString() + " " + z.ToString());
-                //Debug.WriteLine(Size((int)th1) + Size((int)th2) + Size((int)th3) + Size((int)th4) + Size((int)th5) + Size((int)th6) + "   " + x.ToString() + " " + y.ToString() + " " + z.ToString());
+                th1 = Math.Clamp(th1 * 180 / Math.PI, 0, 180);
+                th2 = Math.Clamp(th2 * 180 / Math.PI, 0, 180);
+                //th3 = Math.Clamp(th3 * 180 / Math.PI, 0, 180); // Use this only when debugging/checking values
+                th3 = Math.Clamp(th3 * 180 / Math.PI - th2, 0, 180);
+
                 return Size((int)th1) + Size((int)th2) + Size((int)th3);
             }
             else { return Size((int)th1) + Size((int)th2) + Size((int)th3); }
