@@ -82,42 +82,41 @@ namespace RobotUI_UWP
                     var reading = _Gamepad.GetCurrentReading();
 
                     tbLeftTrigger.Text = Math.Round(reading.LeftTrigger, 1).ToString();
-                    if (Math.Round(reading.LeftTrigger, 1) + th5 < 180)
+                    if (Math.Round(reading.LeftTrigger, 0) + th5 < 180)
                     {
-                        th5 += Math.Round(reading.LeftTrigger, 1);
+                        th5 += Math.Round(reading.LeftTrigger, 0);
                     }
 
                     tbRightTrigger.Text = Math.Round(reading.RightTrigger, 1).ToString();
-                    if (-Math.Round(reading.RightTrigger, 1) + th5 > 0)
+                    if (-Math.Round(reading.RightTrigger, 0) + th5 > 0)
                     {
-                        th5 -= Math.Round(reading.RightTrigger, 1);
+                        th5 -= Math.Round(reading.RightTrigger, 0);
                     }
 
                     tbLeftThumbstickX.Text = Math.Round(reading.LeftThumbstickX, 1).ToString();
-                    if (Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x < 2 && Math.Round(reading.LeftThumbstickX, 1) * 0.01 + x > 0)
+                    if (Math.Round(reading.LeftThumbstickX, 0) * 0.005 + x < 2 && Math.Round(reading.LeftThumbstickX, 0) * 0.005 + x > 0)
                     {
-                        x += Math.Round(reading.LeftThumbstickX, 1) * 0.005;
+                        x += Math.Round(reading.LeftThumbstickX, 0) * 0.005;
                         x_text.Text = " " + x.ToString();
                     }
 
                     tbLeftThumbstickY.Text = Math.Round(reading.LeftThumbstickY, 1).ToString();
-                    if (Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y < 2 && Math.Round(reading.LeftThumbstickY, 1) * 0.01 + y > 0)
+                    if (Math.Round(reading.LeftThumbstickY, 0) * 0.005 + y < 2 && Math.Round(reading.LeftThumbstickY, 0) * 0.005 + y > 0)
                     {
-                        y += Math.Round(reading.LeftThumbstickY, 1) * 0.005;
+                        y += Math.Round(reading.LeftThumbstickY, 0) * 0.005;
                         y_text.Text = " " + y.ToString();
                     }
 
                     tbRightThumbstickX.Text = Math.Round(reading.RightThumbstickX, 1).ToString();
-                    if (Math.Round(reading.LeftThumbstickX, 1) * 0.01 + th4 < 180 && Math.Round(reading.LeftThumbstickX, 1) * 0.01 + th4 > 0)
+                    if (Math.Round(reading.RightThumbstickX, 0) * 0.5 + th4 < 180 && Math.Round(reading.RightThumbstickX, 0) * 0.5 + th4 > 0)
                     {
-                        th4 += Math.Round(reading.LeftThumbstickX, 1) * 0.005;
+                        th4 += Math.Round(reading.RightThumbstickX, 0) * 0.5;
                     }
 
-
                     tbRightThumbstickY.Text = Math.Round(reading.RightThumbstickY, 1).ToString();
-                    if (Math.Round(reading.RightThumbstickY, 1) * 0.01 + z < 2 && Math.Round(reading.RightThumbstickY, 1) * 0.01 + z > 0)
+                    if (Math.Round(reading.RightThumbstickY, 0) * 0.005 + z < 2 && Math.Round(reading.RightThumbstickY, 0) * 0.005 + z > 0)
                     {
-                        z += Math.Round(reading.RightThumbstickY, 1) * 0.005;
+                        z += Math.Round(reading.RightThumbstickY, 0) * 0.005;
                         z_text.Text = " " + z.ToString();
                     }
 
@@ -277,7 +276,7 @@ namespace RobotUI_UWP
                 //th3 = Math.Clamp(th3 * 180 / Math.PI, 0, 180); // Use this only when debugging/checking values
                 th3 = Math.Clamp(th3 * 180 / Math.PI - th2, 0, 180);
 
-                return Size((int)th1) + Size((int)th2) + Size((int)th3);
+                return Size((int)Math.Round(th1)) + Size((int)Math.Round(th2)) + Size((int)Math.Round(th3));
             }
             else { return Size((int)th1) + Size((int)th2) + Size((int)th3); }
         }
