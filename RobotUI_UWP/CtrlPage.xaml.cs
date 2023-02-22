@@ -45,9 +45,9 @@ namespace RobotUI_UWP
         static double x = 1;
         static double y = 0;
         static double z = 1;
-        static double th4 = 0.0;
-        static double th5 = 0.0;
-        static double th6 = 0.0;
+        static double th4 = 90.0;
+        static double th5 = 90.0;
+        static double th6 = 90.0;
 
         private Gamepad _Gamepad = null;
         
