@@ -267,7 +267,7 @@ namespace RobotUI_UWP
 
                 rp = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2) + Math.Pow(z - l1, 2));
                 th1 = Math.Atan2(y, x);
-                B = Math.Acos((Math.Pow(rp, 2) - Math.Pow(l3, 2) - Math.Pow(l1, 2)) / (-2 * l3 * l2));
+                B = Math.Acos((Math.Pow(rp, 2) - Math.Pow(l3, 2) - Math.Pow(l2, 2)) / (-2 * l3 * l2));
                 th3 = Math.PI - B;
                 th2 = Math.Asin((z - l1) / rp) + Math.Atan2((l3 * Math.Sin(th3)), (l2 + l3 * Math.Cos(th3)));
 
