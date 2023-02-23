@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="55176889-fb8c-47f8-95bf-5a4c05912fef"
+    Name="12205SpenserScruggs.VandalsRobotBuilders"
     Publisher="CN=Spenser"
-    Version="1.0.4.0" />
+    Version="1.0.7.0" />
 
-  <mp:PhoneIdentity PhoneProductId="55176889-fb8c-47f8-95bf-5a4c05912fef" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="105fb5c4-9ddc-4781-8a53-59360e0832e6" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>RobotUI_UWP</DisplayName>
-    <PublisherDisplayName>jtcul</PublisherDisplayName>
+    <DisplayName>Vandals Robot Builders</DisplayName>
+    <PublisherDisplayName>Spenser Scruggs</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -30,9 +30,9 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="Vandals_Robotics.App">
+      EntryPoint="Vandals_Robot_Builders.App">
       <uap:VisualElements
-        DisplayName="Vandals Robotics"
+        DisplayName="Vandals Robot Builders"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="App for controlling a robotic arm"
@@ -50,5 +50,6 @@
 			  <Function Type="name:serialPort" />
 		  </Device>
 	  </DeviceCapability>
+    <DeviceCapability Name="bluetooth"/>
   </Capabilities>
 </Package>
