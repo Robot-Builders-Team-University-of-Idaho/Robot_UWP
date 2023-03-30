@@ -25,7 +25,7 @@
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUri>C:\thing</AppInstallerUri>
     <HoursBetweenUpdateChecks>24</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>D6C6BC37263203492635C1076E6F30163946C0B5</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>63A6CEA040545F972CD66613B12E846BB94C42A3</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxPackageDir>C:\thing\</AppxPackageDir>
   </PropertyGroup>
@@ -129,8 +129,20 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Claw.xaml.cs">
+      <DependentUpon>Claw.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoffeeGrounds.xaml.cs">
+      <DependentUpon>CoffeeGrounds.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Compressor.xaml.cs">
+      <DependentUpon>Compressor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CtrlPage.xaml.cs">
       <DependentUpon>CtrlPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -201,7 +213,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Claw.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoffeeGrounds.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Compressor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CtrlPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
