@@ -82,7 +82,7 @@ namespace RobotUI_UWP
 
         private void ChangePage(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(CtrlPage));
+            this.Frame.Navigate(typeof(Home));
         }
 
 

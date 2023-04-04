@@ -26,5 +26,10 @@ namespace RobotUI_UWP
         {
             this.InitializeComponent();
         }
+
+        private void ReturnPage(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Home));
+        }
     }
 }

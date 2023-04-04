@@ -16,5 +16,19 @@
 
             </AcrylicBrush>
         </Border.Background>
+
+        <Button x:Name="Return" Content="Return" HorizontalAlignment="Right"
+                    Click="ReturnPage" Margin="5" Grid.Column="1"
+                    VerticalAlignment="Top" Foreground="White" FontWeight="Bold" BorderBrush="White">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+            <Button.Background>
+                <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+            </Button.Background>
+        </Button>
+
     </Border>
 </Page>

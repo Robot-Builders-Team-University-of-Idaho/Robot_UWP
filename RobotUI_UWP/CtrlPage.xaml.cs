@@ -59,7 +59,7 @@ namespace RobotUI_UWP
         // returns to home page
         private void ReturnPage(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
+            this.Frame.Navigate(typeof(Home));
         }
 
         

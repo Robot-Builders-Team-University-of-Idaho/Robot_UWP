@@ -55,8 +55,8 @@
             </StackPanel>
 
             <!-- Controller Page Navigator -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button x:Name="Page" Content="Controller Page
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="Page" Content="Return
                         " Click="ChangePage" Margin="5" Grid.Row="0"
                     Grid.Column="0" Foreground="White" FontWeight="Bold" BorderBrush="White">
                     <Button.Resources>
@@ -69,23 +69,6 @@
                     </Button.Background>
                 </Button>
             </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="Documentation" Content="Documentation
-                        " Click="OpenGit" Margin="5" Grid.Row="0"
-                    Grid.Column="2" Foreground="White" FontWeight="Bold" BorderBrush="White">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </Button.Resources>
-                    <Button.Background>
-                        <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
-                    </Button.Background>
-                </Button>
-            </StackPanel>
-
-
 
             <!-- Connect and Disconnect Buttons -->
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">

@@ -15,22 +15,100 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
+
+            <Button Click="OpenGit" Grid.Column="1" Content="Documentation" Margin="5,5,5,5" Grid.Row="3" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="3"
+                     Foreground="White" FontWeight="Bold" BorderBrush="White">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Background>
+                    <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                </Button.Background>
+            </Button>
+
+            <Button Click="claw" Grid.Column="1" Content="Claw Effector" Margin="5" Grid.Row="5" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     Foreground="White" FontWeight="Bold" BorderBrush="White">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Background>
+                    <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                </Button.Background>
+            </Button>
+
+            <Button Click="suction" Grid.Column="3" Content="Suction Effector" Margin="5" Grid.Row="5" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     Foreground="White" FontWeight="Bold" BorderBrush="White">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Background>
+                    <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                </Button.Background>
+            </Button>
+
+            <Button Click="coffee" Grid.Column="1" Content="Coffee Grounds" Margin="5" Grid.Row="6" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     Foreground="White" FontWeight="Bold" BorderBrush="White">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Background>
+                    <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                </Button.Background>
+            </Button>
+
+            <Button Click="debug" Grid.Column="3" Content="Debug Page" Margin="5" Grid.Row="6" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     Foreground="White" FontWeight="Bold" BorderBrush="White">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Background>
+                    <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                </Button.Background>
+            </Button>
+
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="5" 
+                       TextWrapping="Wrap" Text="Vandal Robotics Club" VerticalAlignment="Top"
+                       Grid.ColumnSpan="3" FontSize="40"/>
+
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="5" Grid.Row="1" 
+                       TextWrapping="Wrap" Text="Robot Builders Team" VerticalAlignment="Top"
+                       Grid.ColumnSpan="3" FontSize="25"/>
+
+
+
         </Grid>
 
         <Border.Background>
-            <AcrylicBrush TintColor="#6600FF" TintOpacity="0.1" Windows10version1903:TintLuminosityOpacity="0">
+            <AcrylicBrush TintColor="#F1B300" TintOpacity="0.5" Windows10version1903:TintLuminosityOpacity="0">
             </AcrylicBrush>
 
         </Border.Background>
