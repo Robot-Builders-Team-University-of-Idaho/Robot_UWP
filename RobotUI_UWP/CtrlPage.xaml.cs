@@ -229,7 +229,7 @@ namespace RobotUI_UWP
 
                 try
                 {
-                    if (th1 > 0 && th2 > 0 && th3 > 0 && th1 < 180 && th2 < 180 && th3 < 180)
+                    if (th1 >= 0 && th2 >= 0 && th3 >= 0 && th1 <= 180 && th2 <= 180 && th3 <= 180)
                     {
                         port2.WriteLine(Kinematics(x, y, z) + Size((int)th4) + Size((int)th5) + Size((int)th6));
                     }
