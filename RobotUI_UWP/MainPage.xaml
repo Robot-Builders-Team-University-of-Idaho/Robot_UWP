@@ -21,7 +21,7 @@
             </LinearGradientBrush>
         </Border.Background>-->
         <Border.Background>
-            <AcrylicBrush TintColor="#6600FF" TintOpacity="0.1" Windows10version1903:TintLuminosityOpacity="0">
+            <AcrylicBrush TintColor="#D22630" TintOpacity="0.4" Windows10version1903:TintLuminosityOpacity="0.1">
                 
             </AcrylicBrush>
         </Border.Background>

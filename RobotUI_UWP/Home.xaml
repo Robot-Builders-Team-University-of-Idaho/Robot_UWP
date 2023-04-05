@@ -108,7 +108,7 @@
         </Grid>
 
         <Border.Background>
-            <AcrylicBrush TintColor="#F1B300" TintOpacity="0.5" Windows10version1903:TintLuminosityOpacity="0">
+            <AcrylicBrush TintColor="#F1B300" TintOpacity="0.4" Windows10version1903:TintLuminosityOpacity="0.1">
             </AcrylicBrush>
 
         </Border.Background>

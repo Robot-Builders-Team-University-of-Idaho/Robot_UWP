@@ -12,7 +12,7 @@
 
     <Border>
         <Border.Background>
-            <AcrylicBrush TintColor="#00AF66" TintOpacity="0.1" Windows10version1903:TintLuminosityOpacity="0">
+            <AcrylicBrush TintColor="#00AF66" TintOpacity="0.4" Windows10version1903:TintLuminosityOpacity="0.1">
 
             </AcrylicBrush>
         </Border.Background>
