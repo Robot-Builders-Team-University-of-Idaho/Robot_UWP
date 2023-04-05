@@ -10,18 +10,27 @@
     d:DesignWidth="600" d:DesignHeight="500"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <Grid>
-        <Button x:Name="Return" Content="Return" HorizontalAlignment="Right"
-                    Click="ReturnPage" Margin="5" Grid.Column="1"
-                    VerticalAlignment="Top" Foreground="White" FontWeight="Bold" BorderBrush="White">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-            <Button.Background>
-                <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
-            </Button.Background>
-        </Button>
-    </Grid>
+    <Border>
+        <Border.Background>
+            <AcrylicBrush TintColor="#00AF66" TintOpacity="0.1" Windows10version1903:TintLuminosityOpacity="0">
+
+            </AcrylicBrush>
+        </Border.Background>
+
+
+        <Grid>
+            <Button x:Name="Return" Content="Return" HorizontalAlignment="Right"
+                        Click="ReturnPage" Margin="5" Grid.Column="1"
+                        VerticalAlignment="Top" Foreground="White" FontWeight="Bold" BorderBrush="White">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Background>
+                    <SolidColorBrush Color="#000e4b" Opacity="0.1"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+    </Border>
 </Page>
