@@ -49,6 +49,10 @@ namespace RobotUI_UWP
         static double th5 = 90.0;
         static double th6 = 90.0;
 
+        double l1 = 0.5;
+        double l2 = 1;
+        double l3 = 0.5;
+
         private Gamepad _Gamepad = null;
         
         public CtrlPage()
@@ -261,20 +265,23 @@ namespace RobotUI_UWP
             if (Math.Sqrt(x * x + y * y + (z-1) * (z - 1)) < 2 && Math.Sqrt(x * x + y * y + (z - 1) * (z - 1)) > 0.1)
             {
                 double rp, B;
-                double l1 = 1;
-                double l2 = 1;
-                double l3 = 1;
+                double th2old;
 
                 rp = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2) + Math.Pow(z - l1, 2));
                 th1 = Math.Atan2(y, x);
                 B = Math.Acos((Math.Pow(rp, 2) - Math.Pow(l3, 2) - Math.Pow(l2, 2)) / (-2 * l3 * l2));
                 th3 = Math.PI /2 - B;
                 th2 = Math.Asin((z - l1) / rp) + Math.Atan2((l3 * Math.Sin(th3)), (l2 + l3 * Math.Cos(th3)));
+                th2old = th2;
+
 
                 th1 = Math.Clamp(th1 * 180 / Math.PI, 0, 180);
-                th2 = Math.Clamp(th2 * 180 / Math.PI, 0, 180);
+                th2 = Math.Clamp(180 - (th2 * 180 / Math.PI), 0, 180);
                 //th3 = Math.Clamp(th3 * 180 / Math.PI, 0, 180); // Use this only when debugging/checking values
-                th3 = Math.Clamp(th3 * 180 / Math.PI - th2, 0, 180);
+                Debug.WriteLine(th3 * 180 / Math.PI - th2old);
+                th3 = Math.Clamp((th3 * 180 / Math.PI) - th2old, 0, 180);
+
+                
 
                 return Size((int)Math.Round(th1)) + Size((int)Math.Round(th2)) + Size((int)Math.Round(th3));
             }
