@@ -44,10 +44,12 @@ namespace RobotUI_UWP
         static double th1, th2, th3;
         static double x = 1;
         static double y = 0;
-        static double z = 1;
+        static double z = 0.5;
         static double th4 = 90.0;
         static double th5 = 90.0;
         static double th6 = 90.0;
+
+        static int pump = 0;
 
         double l1 = 0.5;
         double l2 = 1;
@@ -98,7 +100,7 @@ namespace RobotUI_UWP
                     }
 
                     tbLeftThumbstickX.Text = Math.Round(reading.LeftThumbstickX, 1).ToString();
-                    if (Math.Round(reading.LeftThumbstickX, 0) * 0.005 + x < 2 && Math.Round(reading.LeftThumbstickX, 0) * 0.005 + x > 0)
+                    if (Math.Round(reading.LeftThumbstickX, 0) * 0.005 + x < 2 && Math.Round(reading.LeftThumbstickX, 0) * 0.005 + x > 0.5)
                     {
                         x += Math.Round(reading.LeftThumbstickX, 0) * 0.005;
                         x_text.Text = " " + x.ToString();
@@ -122,6 +124,19 @@ namespace RobotUI_UWP
                     {
                         z += Math.Round(reading.RightThumbstickY, 0) * 0.005;
                         z_text.Text = " " + z.ToString();
+                    }
+
+                    if (reading.Buttons == GamepadButtons.A)
+                    {
+                        pump = 0;
+                    }
+                    if (reading.Buttons == GamepadButtons.B)
+                    {
+                        pump = 1;
+                    }
+                    if (reading.Buttons == GamepadButtons.Y)
+                    {
+                        pump = 2;
                     }
 
                     tbButtons.Text = string.Empty;
@@ -150,11 +165,11 @@ namespace RobotUI_UWP
 
                 Kinematics(x, y, z);
 
-                Debug.WriteLine(Size((int)th1) + " " + Size((int)th2) + " " + Size((int)th3) + " " + " " + Size((int)th4) + " " + " " + Size((int)th5) + " " + " " + Size((int)th6) + " ");
+                Debug.WriteLine(Size((int)th1) + " " + Size((int)th2) + " " + Size((int)th3) + " " + " " + Size((int)th4) + " " + " " + Size((int)th5) + " " + " " + Size((int)th6) + " " + pump.ToString());
                 await Task.Delay(TimeSpan.FromMilliseconds(5));
             }
         }
-
+ 
         private async void Gamepad_GamepadRemoved(object sender,Gamepad e)
         {
             _Gamepad = null;
@@ -234,8 +249,8 @@ namespace RobotUI_UWP
                 try
                 {
                     if (th1 >= 0 && th2 >= 0 && th3 >= 0 && th1 <= 180 && th2 <= 180 && th3 <= 180)
-                    {
-                        port2.WriteLine(Kinematics(x, y, z) + Size((int)th4) + Size((int)th5) + Size((int)th6));
+                    {                 
+                        port2.WriteLine(Kinematics(x, y, z) + Size((int)th4) + Size((int)th5) + Size((int)th6) + pump.ToString());
                     }
                 }
                 catch { printing2 = false; }
@@ -278,7 +293,6 @@ namespace RobotUI_UWP
                 th1 = Math.Clamp(th1 * 180 / Math.PI, 0, 180);
                 th2 = Math.Clamp(180 - (th2 * 180 / Math.PI), 0, 180);
                 //th3 = Math.Clamp(th3 * 180 / Math.PI, 0, 180); // Use this only when debugging/checking values
-                Debug.WriteLine(th3 * 180 / Math.PI - th2old);
                 th3 = Math.Clamp((th3 * 180 / Math.PI) - th2old, 0, 180);
 
                 
