@@ -2,6 +2,9 @@
 
 int startpos = 0;
 
+int state = 0;
+int timer = 500;
+
 Servo servo1;
 Servo servo2;
 Servo servo3;
@@ -25,6 +28,13 @@ void setup() {
   servo4.write(startpos);
   servo5.write(startpos);
   servo6.write(startpos);
+
+  pinMode(32, OUTPUT);
+  pinMode(36, OUTPUT);
+  pinMode(40, OUTPUT);
+  pinMode(44, OUTPUT);
+  delay(100);
+  digitalWrite(44, HIGH);
 }
 
 void loop() {
@@ -33,6 +43,8 @@ void loop() {
   }
   String input = Serial.readString();
   Serial.flush();
+
+  
   
   int pos1 = (input.substring(0, 3)).toInt();
   int pos2 = (input.substring(3, 6)).toInt();
@@ -40,6 +52,41 @@ void loop() {
   int pos4 = (input.substring(9, 12)).toInt();
   int pos5 = (input.substring(12, 15)).toInt();
   int pos6 = (input.substring(15, 18)).toInt();
+  state = (input.substring(18, 19)).toInt();
+
+  switch(state){
+    case 0: //nothing 
+      digitalWrite(32, LOW);
+      digitalWrite(36, LOW);
+      digitalWrite(40, LOW);
+      digitalWrite(44, LOW);
+      timer = 50;
+      break;
+    case 1: //blowing
+      if (timer > 0){
+        digitalWrite(32, HIGH);
+        digitalWrite(36, HIGH);
+        digitalWrite(40, HIGH);
+        digitalWrite(44, HIGH);
+        timer -= 1;
+      } else {
+        digitalWrite(32, LOW);
+        digitalWrite(36, LOW);
+        digitalWrite(40, LOW);
+        digitalWrite(44, LOW);
+      }
+      break;
+    case 2: //sucking
+      digitalWrite(32, LOW);
+      digitalWrite(36, LOW);
+      digitalWrite(40, LOW);
+      digitalWrite(44, HIGH);
+      timer = 50;
+      break;
+    default:
+      timer = 50;
+      break;
+  }
   
   servo1.write(pos1);
   servo2.write(pos2);
