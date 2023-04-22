@@ -12,6 +12,11 @@ Servo servo4;
 Servo servo5;
 Servo servo6;
 
+int pin1 = 32;
+int pin2 = 36;
+int pin3 = 40;
+int pin4 = 44;
+
 void setup() {
   Serial.begin(115200);
   Serial.setTimeout(5);
@@ -29,12 +34,16 @@ void setup() {
   servo5.write(startpos);
   servo6.write(startpos);
 
-  pinMode(32, OUTPUT);
-  pinMode(36, OUTPUT);
-  pinMode(40, OUTPUT);
-  pinMode(44, OUTPUT);
+  pinMode(pin1, OUTPUT);
+  pinMode(pin2, OUTPUT);
+  pinMode(pin3, OUTPUT);
+  pinMode(pin4, OUTPUT);
   delay(100);
-  digitalWrite(44, HIGH);
+  
+  digitalWrite(pin1, LOW);
+  digitalWrite(pin2, LOW);
+  digitalWrite(pin3, LOW);
+  digitalWrite(pin4, LOW);
 }
 
 void loop() {
@@ -56,31 +65,31 @@ void loop() {
 
   switch(state){
     case 0: //nothing 
-      digitalWrite(32, LOW);
-      digitalWrite(36, LOW);
-      digitalWrite(40, LOW);
-      digitalWrite(44, LOW);
+      digitalWrite(pin1, LOW);
+      digitalWrite(pin2, LOW);
+      digitalWrite(pin3, LOW);
+      digitalWrite(pin4, LOW);
       timer = 50;
       break;
     case 1: //blowing
       if (timer > 0){
-        digitalWrite(32, HIGH);
-        digitalWrite(36, HIGH);
-        digitalWrite(40, HIGH);
-        digitalWrite(44, HIGH);
+        digitalWrite(pin1, HIGH);
+        digitalWrite(pin2, HIGH);
+        digitalWrite(pin3, HIGH);
+        digitalWrite(pin4, HIGH);
         timer -= 1;
       } else {
-        digitalWrite(32, LOW);
-        digitalWrite(36, LOW);
-        digitalWrite(40, LOW);
-        digitalWrite(44, LOW);
+        digitalWrite(pin1, LOW);
+        digitalWrite(pin2, LOW);
+        digitalWrite(pin3, LOW);
+        digitalWrite(pin4, LOW);
       }
       break;
     case 2: //sucking
-      digitalWrite(32, LOW);
-      digitalWrite(36, LOW);
-      digitalWrite(40, LOW);
-      digitalWrite(44, HIGH);
+      digitalWrite(pin1, LOW);
+      digitalWrite(pin2, LOW);
+      digitalWrite(pin3, LOW);
+      digitalWrite(pin4, HIGH);
       timer = 50;
       break;
     default:
