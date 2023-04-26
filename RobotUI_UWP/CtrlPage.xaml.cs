@@ -49,7 +49,7 @@ namespace RobotUI_UWP
         static double th5 = 90.0;
         static double th6 = 90.0;
 
-        static int pump = 0;
+        //static int pump = 0;
 
         double l1 = 0.5;
         double l2 = 1;
@@ -65,6 +65,12 @@ namespace RobotUI_UWP
         // returns to home page
         private void ReturnPage(object sender, RoutedEventArgs e)
         {
+            if (port2.IsOpen)
+            {
+                port2.Close();
+            }
+            _Gamepad = null;
+
             this.Frame.Navigate(typeof(Home));
         }
 
@@ -126,18 +132,18 @@ namespace RobotUI_UWP
                         z_text.Text = " " + z.ToString();
                     }
 
-                    if (reading.Buttons == GamepadButtons.A)
-                    {
-                        pump = 0;
-                    }
-                    if (reading.Buttons == GamepadButtons.B)
-                    {
-                        pump = 1;
-                    }
-                    if (reading.Buttons == GamepadButtons.Y)
-                    {
-                        pump = 2;
-                    }
+                    //if (reading.Buttons == GamepadButtons.A)
+                    //{
+                    //    pump = 0;
+                    //}
+                    //if (reading.Buttons == GamepadButtons.B)
+                    //{
+                    //    pump = 1;
+                    //}
+                    //if (reading.Buttons == GamepadButtons.Y)
+                    //{
+                    //    pump = 2;
+                    //}
 
                     tbButtons.Text = string.Empty;
                     tbButtons.Text += (reading.Buttons & GamepadButtons.A) == GamepadButtons.A ? "A " : "";
@@ -165,7 +171,7 @@ namespace RobotUI_UWP
 
                 Kinematics(x, y, z);
 
-                Debug.WriteLine(Size((int)th1) + " " + Size((int)th2) + " " + Size((int)th3) + " " + " " + Size((int)th4) + " " + " " + Size((int)th5) + " " + " " + Size((int)th6) + " " + pump.ToString());
+                //Debug.WriteLine(Size((int)th1) + " " + Size((int)th2) + " " + Size((int)th3) + " " + " " + Size((int)th4) + " " + " " + Size((int)th5) + " " + " " + Size((int)th6) + " " + pump.ToString());
                 await Task.Delay(TimeSpan.FromMilliseconds(5));
             }
         }
@@ -249,8 +255,8 @@ namespace RobotUI_UWP
                 try
                 {
                     if (th1 >= 0 && th2 >= 0 && th3 >= 0 && th1 <= 180 && th2 <= 180 && th3 <= 180)
-                    {                 
-                        port2.WriteLine(Kinematics(x, y, z) + Size((int)th4) + Size((int)th5) + Size((int)th6) + pump.ToString());
+                    {
+                        port2.WriteLine(Kinematics(x, y, z) + Size((int)th4) + Size((int)th5) + Size((int)th6)); //+ pump.ToString());
                     }
                 }
                 catch { printing2 = false; }
