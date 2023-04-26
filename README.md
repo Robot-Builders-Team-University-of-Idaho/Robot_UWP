@@ -15,7 +15,7 @@ On the home page their are several buttons, "Documentation" will take you to the
 
 
 ## End Effector Pages:
-<img width="483" alt="image" src="https://user-images.githubusercontent.com/78044374/234443641-777f4193-a99e-470f-8f15-77a127944553.png">
+<img width="321" alt="image" src="https://user-images.githubusercontent.com/78044374/234443717-0207e44f-c042-4c98-8ede-78f0847aa128.png">
 
 Each page will have the same basic layout, with the "Controller Connect" button enableling the app to get inputs from a controller that is connected via bluetooth to your computer. The dropdown is for selecting the com port that the computer has designated for your Arduino microcontroller, this can be found either in device manager
 
