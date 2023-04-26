@@ -15,7 +15,7 @@ On the home page their are several buttons, "Documentation" will take you to the
 
 
 ## End Effector Pages:
-<img width="321" alt="image" src="https://user-images.githubusercontent.com/78044374/234443717-0207e44f-c042-4c98-8ede-78f0847aa128.png">
+<img width="485" alt="image" src="https://user-images.githubusercontent.com/78044374/234443717-0207e44f-c042-4c98-8ede-78f0847aa128.png">
 
 Each page will have the same basic layout, with the "Controller Connect" button enableling the app to get inputs from a controller that is connected via bluetooth to your computer. The dropdown is for selecting the com port that the computer has designated for your Arduino microcontroller, this can be found either in device manager
 
@@ -25,6 +25,6 @@ or in the Arduino IDE. Additionaly there are connect and disconnect buttons that
 
 
 ## Debug Page:
-<img width="486" alt="image" src="https://user-images.githubusercontent.com/78044374/234443045-d59738cd-8149-4d1e-8a3c-03847bbfef4c.png">
+<img width="485" alt="image" src="https://user-images.githubusercontent.com/78044374/234443045-d59738cd-8149-4d1e-8a3c-03847bbfef4c.png">
 
 The debug page has a slider that can control 6 servos independently. This page is most usefull for assembly and to zero out each servo before they are installed. The record and play buttons currently do not work.
